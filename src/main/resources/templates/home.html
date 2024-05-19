@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/base.html :: header(title = 'SCM | Home')"></head>
+  <head th:replace="~{fragments/base.html :: header(title = 'SCM | Home')}"></head>
   <body class="font-roboto">
-    <nav th:replace="fragments/navbar.html :: navbar"></nav>
+    <nav th:replace="~{fragments/navbar.html :: navbar}"></nav>
 
     <h1 class="text-3xl">This is Home Page</h1>
     <p>
@@ -14,6 +14,6 @@
       impedit numquam nobis debitis ut officiis eveniet.
     </p>
 
-    <script th:replace="fragments/base.html :: flowbite-js"></script>
+    <script th:replace="~{fragments/base.html :: flowbite-js}"></script>
   </body>
 </html>
