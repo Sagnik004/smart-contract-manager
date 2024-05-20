@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="~{fragments/base.html :: header(title = 'SCM | About')}"></head>
-  <body class="font-roboto">
+  <body class="font-roboto dark:bg-gray-800 dark:text-slate-300">
     <nav th:replace="~{fragments/navbar.html :: navbar}"></nav>
 
-    <h1 class="text-3xl">This is About Page</h1>
+    <h1 class="text-3xl dark:text-[#E0C097]">This is About Page</h1>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores animi
       nisi hic enim rerum autem.
     </p>
 
     <script th:replace="~{fragments/base.html :: flowbite-js}"></script>
+    <script th:replace="~{fragments/base.html :: app-js}"></script>
   </body>
 </html>
