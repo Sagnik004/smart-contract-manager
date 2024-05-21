@@ -3,18 +3,121 @@
   <head
     th:replace="~{fragments/base.html :: header(title = 'SCM | Signup')}"
   ></head>
-  <body class="font-roboto dark:bg-gray-800 dark:text-slate-300">
+  <body class="font-roboto bg-gray-100 dark:bg-gray-800 dark:text-slate-300">
     <nav th:replace="~{fragments/navbar.html :: navbar}"></nav>
 
-    <h1 class="text-3xl dark:text-[#E0C097]">This is Signup Page</h1>
-    <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore,
-      consequuntur atque beatae, incidunt voluptates, porro odio tempora
-      architecto excepturi deserunt a dolor! Tempora, aspernatur rem ducimus
-      veritatis placeat repellendus doloribus, voluptatem maiores iusto esse
-      tempore, accusantium dolorem soluta laborum pariatur voluptatum sit. Magni
-      impedit numquam nobis debitis ut officiis eveniet.
-    </p>
+    <!-- <h1 class="text-3xl dark:text-[#E0C097]">This is Signup Page</h1> -->
+
+    <section class="mt-4 p-4">
+      <div class="grid grid-cols-12 max-w-screen-xl m-auto">
+        <div class="md:col-span-2"></div>
+        <div class="col-span-12 md:col-span-8">
+          <div
+            class="p-6 bg-gray-50 border-t-[4px] border-blue-600 rounded-lg shadow dark:bg-gray-900"
+          >
+            <h5
+              class="mb-2 text-2xl md:text-3xl text-center font-bold tracking-tight text-gray-900 dark:text-[#E0C097]"
+            >
+              Sign up
+            </h5>
+
+            <form>
+              <!-- Username -->
+              <div class="mt-4 mb-6">
+                <label
+                  for="name"
+                  class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Enter username"
+                  required
+                />
+              </div>
+
+              <!-- Email -->
+              <div class="mb-6">
+                <label
+                  for="email"
+                  class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Enter email"
+                  required
+                />
+              </div>
+
+              <!-- Password -->
+              <div class="mb-6">
+                <label
+                  for="password"
+                  class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Enter password"
+                  required
+                />
+              </div>
+
+              <!-- Phone -->
+              <div class="mb-6">
+                <label
+                  for="phone"
+                  class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Contact Number
+                </label>
+                <input
+                  type="number"
+                  id="phone"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Enter contact number"
+                  required
+                />
+              </div>
+
+              <!-- Description -->
+              <div class="mb-6">
+                <label
+                  for="description"
+                  class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Description
+                </label>
+                <textarea
+                  id="description"
+                  rows="4"
+                  class="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Describe yourself..."
+                ></textarea>
+              </div>
+
+              <!-- text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 -->
+              <button
+                type="submit"
+                class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <script th:replace="~{fragments/base.html :: flowbite-js}"></script>
     <script th:replace="~{fragments/base.html :: app-js}"></script>
