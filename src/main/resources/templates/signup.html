@@ -3,7 +3,7 @@
   <head
     th:replace="~{fragments/base.html :: header(title = 'SCM | Signup')}"
   ></head>
-  <body class="font-roboto bg-gray-100 dark:bg-gray-800 dark:text-slate-300">
+  <body class="font-reddit bg-gray-100 dark:bg-gray-800 dark:text-slate-300">
     <nav th:replace="~{fragments/navbar.html :: navbar}"></nav>
 
     <!-- <h1 class="text-3xl dark:text-[#E0C097]">This is Signup Page</h1> -->
@@ -21,7 +21,11 @@
               Sign up
             </h5>
 
-            <form>
+            <form
+              th:action="@{/register}"
+              method="post"
+              th:object="${userForm}"
+            >
               <!-- Username -->
               <div class="mt-4 mb-6">
                 <label
@@ -33,6 +37,7 @@
                 <input
                   type="text"
                   id="name"
+                  th:field="*{name}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter username"
                   required
@@ -50,6 +55,7 @@
                 <input
                   type="email"
                   id="email"
+                  th:field="*{email}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter email"
                   required
@@ -67,6 +73,7 @@
                 <input
                   type="password"
                   id="password"
+                  th:field="*{password}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter password"
                   required
@@ -84,6 +91,7 @@
                 <input
                   type="number"
                   id="phone"
+                  th:field="*{phoneNumber}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter contact number"
                   required
@@ -100,6 +108,7 @@
                 </label>
                 <textarea
                   id="description"
+                  th:field="*{about}"
                   rows="4"
                   class="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Describe yourself..."

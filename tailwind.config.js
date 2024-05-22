@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      'roboto': ['Roboto', ...defaultTheme.fontFamily.sans],
+      'reddit': ['Reddit Sans', ...defaultTheme.fontFamily.sans],
     },
   },
   plugins: [],
