@@ -1,12 +1,10 @@
 package in.sagnikchakraborty.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @Entity()
 @Table(name = "users")
 public class User {
@@ -55,23 +53,20 @@ public class User {
     public User() {
     }
 
-    public User(String userId, String name, String email, String password,
-                String phoneNumber, String about, String profilePic,
-                boolean isEnabled, boolean isEmailVerified, boolean isPhoneVerified,
-                Providers provider, String providerId, List<Contact> contacts) {
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.about = about;
-        this.profilePic = profilePic;
-        this.isEnabled = isEnabled;
-        this.isEmailVerified = isEmailVerified;
-        this.isPhoneVerified = isPhoneVerified;
-        this.provider = provider;
-        this.providerId = providerId;
-        this.contacts = contacts;
+    private User(Builder userBuilder) {
+        this.userId = userBuilder.userId;
+        this.name = userBuilder.name;
+        this.email = userBuilder.email;
+        this.password = userBuilder.password;
+        this.phoneNumber = userBuilder.phoneNumber;
+        this.about = userBuilder.about;
+        this.profilePic = userBuilder.profilePic;
+        this.isEnabled = userBuilder.isEnabled;
+        this.isEmailVerified = userBuilder.isEmailVerified;
+        this.isPhoneVerified = userBuilder.isPhoneVerified;
+        this.provider = userBuilder.provider;
+        this.providerId = userBuilder.providerId;
+        this.contacts = userBuilder.contacts;
     }
 
     public String getUserId() {
@@ -182,5 +177,90 @@ public class User {
                 ", providerId='" + providerId + '\'' +
                 ", contacts=" + contacts +
                 '}';
+    }
+
+    public static class Builder {
+        private String userId;
+        private String name;
+        private String email;
+        private String password;
+        private String phoneNumber;
+        private String about;
+        private String profilePic;
+        private boolean isEnabled;
+        private boolean isEmailVerified;
+        private boolean isPhoneVerified;
+        private Providers provider;
+        private String providerId;
+        private List<Contact> contacts;
+
+        public Builder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder phoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public Builder about(String about) {
+            this.about = about;
+            return this;
+        }
+
+        public Builder profilePic(String profilePic) {
+            this.profilePic = profilePic;
+            return this;
+        }
+
+        public Builder isEnabled(boolean isEnabled) {
+            this.isEnabled = isEnabled;
+            return this;
+        }
+
+        public Builder isEmailVerified(boolean isEmailVerified) {
+            this.isEmailVerified = isEmailVerified;
+            return this;
+        }
+
+        public Builder isPhoneVerified(boolean isPhoneVerified) {
+            this.isPhoneVerified = isPhoneVerified;
+            return this;
+        }
+
+        public Builder provider(Providers provider) {
+            this.provider = provider;
+            return this;
+        }
+
+        public Builder providerId(String providerId) {
+            this.providerId = providerId;
+            return this;
+        }
+
+        public Builder contacts(List<Contact> contacts) {
+            this.contacts = contacts;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }

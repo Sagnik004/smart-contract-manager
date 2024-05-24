@@ -67,14 +67,16 @@ public class PageController {
         // Validate data
 
         // Save to DB
-        User user = new User();
-        user.setName(userForm.getName());
-        user.setEmail(userForm.getEmail());
-        user.setPassword(userForm.getPassword());
-        user.setPhoneNumber(userForm.getPhoneNumber());
-        user.setAbout(userForm.getAbout());
+        User user = new User.Builder()
+                .name(userForm.getName())
+                .email(userForm.getEmail())
+                .password(userForm.getPassword())
+                .phoneNumber(userForm.getPhoneNumber())
+                .about(userForm.getAbout())
+                .build();
 
-        userService.saveUser(user);
+        User savedUser = userService.saveUser(user);
+        System.out.println("User saved successfully! " + savedUser);
 
         // Set message & redirect
         return "redirect:/signup";
