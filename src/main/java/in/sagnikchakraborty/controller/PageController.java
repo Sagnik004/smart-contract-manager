@@ -2,7 +2,11 @@ package in.sagnikchakraborty.controller;
 
 import in.sagnikchakraborty.dto.UserSignupForm;
 import in.sagnikchakraborty.entities.User;
+import in.sagnikchakraborty.helpers.Message;
+import in.sagnikchakraborty.helpers.MessageColor;
+import in.sagnikchakraborty.helpers.MessageType;
 import in.sagnikchakraborty.service.IUserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,7 +67,7 @@ public class PageController {
 
     // Process signup request
     @PostMapping("/register")
-    public String doRegister(@ModelAttribute UserSignupForm userForm) {
+    public String doRegister(@ModelAttribute UserSignupForm userForm, HttpSession session) {
         // Validate data
 
         // Save to DB
@@ -78,7 +82,14 @@ public class PageController {
         User savedUser = userService.saveUser(user);
         System.out.println("User saved successfully! " + savedUser);
 
-        // Set message & redirect
+        // Set message in session & redirect
+        Message message = new Message.Builder()
+                .type(MessageType.SUCCESS)
+                .color(MessageColor.green)
+                .content("Sign up complete!")
+                .build();
+
+        session.setAttribute("message", message);
         return "redirect:/signup";
     }
 }

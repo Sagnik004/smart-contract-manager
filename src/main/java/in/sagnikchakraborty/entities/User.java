@@ -41,6 +41,7 @@ public class User {
     private boolean isPhoneVerified = false;
 
     @Column(name = "signup_provider")
+    @Enumerated(value = EnumType.STRING)
     private Providers provider = Providers.SELF;
 
     @Column(name = "signup_provider_id")
@@ -190,7 +191,7 @@ public class User {
         private boolean isEnabled;
         private boolean isEmailVerified;
         private boolean isPhoneVerified;
-        private Providers provider;
+        private Providers provider = Providers.SELF;
         private String providerId;
         private List<Contact> contacts;
 

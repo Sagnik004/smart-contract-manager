@@ -19,7 +19,7 @@ public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Override
     public User saveUser(User user) {
