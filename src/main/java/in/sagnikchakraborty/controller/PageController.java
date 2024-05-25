@@ -7,9 +7,11 @@ import in.sagnikchakraborty.helpers.MessageColor;
 import in.sagnikchakraborty.helpers.MessageType;
 import in.sagnikchakraborty.service.IUserService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,15 +62,19 @@ public class PageController {
 
         // Send a blank UserSignupForm object to UI
         UserSignupForm userForm = new UserSignupForm();
-        model.addAttribute("userForm", userForm);
+        model.addAttribute("userSignupForm", userForm);
 
         return "signup";
     }
 
     // Process signup request
     @PostMapping("/register")
-    public String doRegister(@ModelAttribute UserSignupForm userForm, HttpSession session) {
+    public String doRegister(@Valid @ModelAttribute UserSignupForm userForm,
+                             BindingResult bindingResult, HttpSession session) {
         // Validate data
+        if (bindingResult.hasErrors()) {
+            return "signup";
+        }
 
         // Save to DB
         User user = new User.Builder()
