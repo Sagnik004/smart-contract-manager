@@ -1,13 +1,17 @@
 package in.sagnikchakraborty.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity()
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @Column(name = "id")
@@ -51,6 +55,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Contact> contacts = new ArrayList<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roleList = new ArrayList<>();
+
     public User() {
     }
 
@@ -68,6 +75,7 @@ public class User {
         this.provider = userBuilder.provider;
         this.providerId = userBuilder.providerId;
         this.contacts = userBuilder.contacts;
+        this.roleList = userBuilder.roleList;
     }
 
     public String getUserId() {
@@ -91,9 +99,6 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
     public void setPassword(String password) {
         this.password = password;
     }
@@ -119,9 +124,6 @@ public class User {
         this.profilePic = profilePic;
     }
 
-    public boolean isEnabled() {
-        return isEnabled;
-    }
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
     }
@@ -161,6 +163,50 @@ public class User {
         this.contacts = contacts;
     }
 
+    public List<String> getRoleList() {
+        return roleList;
+    }
+    public void setRoleList(List<String> roleList) {
+        this.roleList = roleList;
+    }
+
+    // Spring Security UserDetails interface methods
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Convert our roles to SimpleGrantedAuthority and send
+        return roleList.stream().map(SimpleGrantedAuthority::new).toList();
+    }
+
+    @Override
+    public String getPassword() {
+        return "";
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -194,6 +240,7 @@ public class User {
         private Providers provider = Providers.SELF;
         private String providerId;
         private List<Contact> contacts;
+        private List<String> roleList = new ArrayList<>();
 
         public Builder userId(String userId) {
             this.userId = userId;
@@ -257,6 +304,11 @@ public class User {
 
         public Builder contacts(List<Contact> contacts) {
             this.contacts = contacts;
+            return this;
+        }
+
+        public Builder roleList(List<String> roleList) {
+            this.roleList = roleList;
             return this;
         }
 

@@ -1,12 +1,14 @@
 package in.sagnikchakraborty.service.impl;
 
 import in.sagnikchakraborty.entities.User;
+import in.sagnikchakraborty.helpers.AppConstants;
 import in.sagnikchakraborty.helpers.ResourceNotFoundException;
 import in.sagnikchakraborty.repository.IUserRepository;
 import in.sagnikchakraborty.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +21,21 @@ public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Override
     public User saveUser(User user) {
         // Generate user_id
         user.setUserId(UUID.randomUUID().toString());
+
+        // Encode password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // Set user role
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
 
         return userRepository.save(user);
     }

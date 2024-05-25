@@ -1,27 +1,35 @@
 package in.sagnikchakraborty.config;
 
+import in.sagnikchakraborty.service.impl.SecurityCustomUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig {
 
+    @Autowired
+    private SecurityCustomUserDetailService customUserDetailService;
+
     @Bean
-    public UserDetailsService getUserDetails() {
-        UserDetails user1 = User.withUsername("admin")
-                .password("{noop}rootuser123")
-                .roles("USER", "ADMIN")
-                .build();
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 
-        UserDetails user2 = User.withUsername("rocky")
-                .password("{noop}rockybhai")
-                .roles("USER")
-                .build();
+        // Object of user detail service
+        provider.setUserDetailsService(customUserDetailService);
 
-        return new InMemoryUserDetailsManager(user1, user2);
+        // Object of password encoder
+        provider.setPasswordEncoder(passwordEncoder());
+
+        return provider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
