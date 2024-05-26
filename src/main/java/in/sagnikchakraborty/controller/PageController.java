@@ -22,6 +22,11 @@ public class PageController {
     @Autowired
     private IUserService userService;
 
+    @GetMapping("/")
+    public String indexPage() {
+        return "redirect:/home";
+    }
+
     @GetMapping("/home")
     public String getHomePage(Model model) {
         System.out.println("Home page handler");
@@ -83,6 +88,7 @@ public class PageController {
                 .password(userForm.getPassword())
                 .phoneNumber(userForm.getPhoneNumber())
                 .about(userForm.getAbout())
+                .isEnabled(true)
                 .build();
 
         User savedUser = userService.saveUser(user);

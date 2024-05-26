@@ -6,8 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
@@ -15,6 +18,7 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomUserDetailService customUserDetailService;
 
+    /* Configuration of authentication provider */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -26,6 +30,24 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
 
         return provider;
+    }
+
+    /* Configuration of Http Security */
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        /* Configure:
+            1) Open and authenticated routes
+            2) Form login and login route
+         */
+        http
+            .authorizeHttpRequests((authorize) -> authorize.
+                requestMatchers("/user/**").authenticated()
+                .anyRequest().permitAll()
+            )
+            .formLogin(Customizer.withDefaults());
+
+        return http.build();
     }
 
     @Bean

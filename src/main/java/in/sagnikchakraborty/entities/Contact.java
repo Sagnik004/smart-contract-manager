@@ -41,7 +41,7 @@ public class Contact {
     @Column(name = "website_link")
     private String websiteLink;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @Column(name = "social_links")
