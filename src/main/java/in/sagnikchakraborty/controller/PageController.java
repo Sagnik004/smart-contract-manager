@@ -57,18 +57,18 @@ public class PageController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage() {
-        System.out.println("Login page handler");
+    public String getLoginPage(Model model) {
+        // Send a blank UserSignupForm object to UI
+        UserSignupForm userForm = new UserSignupForm();
+        model.addAttribute("userSignupForm", userForm);
         return "login";
     }
 
     @GetMapping("/signup")
     public String getSignupPage(Model model) {
-
         // Send a blank UserSignupForm object to UI
         UserSignupForm userForm = new UserSignupForm();
         model.addAttribute("userSignupForm", userForm);
-
         return "signup";
     }
 

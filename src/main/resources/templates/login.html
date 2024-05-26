@@ -1,18 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{fragments/base.html :: header(title = 'SCM | Login')}"></head>
+  <head
+    th:replace="~{fragments/base.html :: header(title = 'SCM | Login')}"
+  ></head>
   <body class="font-reddit dark:bg-gray-800 dark:text-slate-300">
     <nav th:replace="~{fragments/navbar.html :: navbar}"></nav>
 
-    <h1 class="text-3xl dark:text-[#E0C097]">This is Login Page</h1>
-    <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore,
-      consequuntur atque beatae, incidunt voluptates, porro odio tempora
-      architecto excepturi deserunt a dolor! Tempora, aspernatur rem ducimus
-      veritatis placeat repellendus doloribus, voluptatem maiores iusto esse
-      tempore, accusantium dolorem soluta laborum pariatur voluptatum sit. Magni
-      impedit numquam nobis debitis ut officiis eveniet.
-    </p>
+    <section class="mt-4 p-4">
+      <div class="grid grid-cols-12 max-w-screen-lg m-auto">
+        <div class="md:col-span-2"></div>
+        <div class="col-span-12 md:col-span-8">
+          <div
+            class="p-6 bg-gray-50 border-t-[4px] border-blue-600 rounded-lg shadow dark:bg-gray-900"
+          >
+            <!-- Message goes here... -->
+            <div th:replace="~{fragments/message.html :: messagebox}"></div>
+
+            <h5
+              class="mb-2 text-2xl md:text-3xl text-center font-bold tracking-tight text-gray-900 dark:text-[#E0C097]"
+            >
+              Login
+            </h5>
+
+            <div
+              th:if="${param.error}"
+              class="flex items-center p-4 mb-4 text-sm text-red-800 border-red-300 rounded-lg bg-red-200 dark:bg-red-300"
+            >
+              Invalid credentials provided!
+            </div>
+            <div
+              th:if="${param.logout}"
+              class="flex items-center p-4 mb-4 text-sm text-green-800 border-green-300 rounded-lg bg-green-200 dark:bg-green-300"
+            >
+              You have been logged out!
+            </div>
+
+            <!-- Login form -->
+            <form
+              method="post"
+              th:action="@{/authenticate}"
+            >
+              <!-- Username/Email -->
+              <div class="mb-6">
+                <label
+                  for="email"
+                  class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Enter email"
+                  required
+                />
+                <!-- <p
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"
+                  class="text-red-600 text-sm"
+                ></p> -->
+              </div>
+
+              <!-- Password -->
+              <div class="mb-6">
+                <label
+                  for="password"
+                  class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Enter password"
+                  required
+                />
+                <!-- <p
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}"
+                  class="text-red-600 text-sm"
+                ></p> -->
+              </div>
+
+              <button
+                type="submit"
+                class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Login
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <script th:replace="~{fragments/base.html :: flowbite-js}"></script>
     <script th:replace="~{fragments/base.html :: app-js}"></script>

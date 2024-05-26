@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,7 +44,22 @@ public class SecurityConfig {
                 requestMatchers("/user/**").authenticated()
                 .anyRequest().permitAll()
             )
-            .formLogin(Customizer.withDefaults());
+            .formLogin(form -> form
+                    .loginPage("/login")
+                    .loginProcessingUrl("/authenticate")
+                    .defaultSuccessUrl("/user/profile")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+            );
+
+        // Temporary (when csrf is enabled, which is enabled by default, then logout URL must be a POST request.
+        // Getting around it for testing)
+        // http.csrf(AbstractHttpConfigurer::disable);
+
+        http.logout(logoutForm -> logoutForm
+                .logoutUrl("/do-logout")
+                .logoutSuccessUrl("/login?logout=true")
+        );
 
         return http.build();
     }

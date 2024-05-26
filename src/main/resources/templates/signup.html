@@ -9,7 +9,7 @@
     <!-- <h1 class="text-3xl dark:text-[#E0C097]">This is Signup Page</h1> -->
 
     <section class="mt-4 p-4">
-      <div class="grid grid-cols-12 max-w-screen-xl m-auto">
+      <div class="grid grid-cols-12 max-w-screen-lg m-auto">
         <div class="md:col-span-2"></div>
         <div class="col-span-12 md:col-span-8">
           <div
@@ -29,7 +29,6 @@
               th:action="@{/register}"
               method="post"
               th:object="${userSignupForm}"
-              novalidate
             >
               <!-- Username -->
               <div class="mt-4 mb-6">
