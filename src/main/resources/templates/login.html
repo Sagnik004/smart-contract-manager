@@ -3,7 +3,7 @@
   <head
     th:replace="~{fragments/base.html :: header(title = 'SCM | Login')}"
   ></head>
-  <body class="font-reddit dark:bg-gray-800 dark:text-slate-300">
+  <body class="font-inter dark:bg-gray-800 dark:text-slate-300">
     <nav th:replace="~{fragments/navbar.html :: navbar}"></nav>
 
     <section class="mt-4 p-4">
@@ -36,10 +36,7 @@
             </div>
 
             <!-- Login form -->
-            <form
-              method="post"
-              th:action="@{/authenticate}"
-            >
+            <form method="post" th:action="@{/authenticate}">
               <!-- Username/Email -->
               <div class="mb-6">
                 <label
@@ -93,6 +90,15 @@
                 Login
               </button>
             </form>
+
+            <!-- OAuth login options -->
+            <div class="flex justify-center mt-5">
+              <a
+                th:href="@{'/oauth2/authorization/google'}"
+                class="px-3 py-2 login-with-google-btn"
+                >Login with Google</a
+              >
+            </div>
           </div>
         </div>
       </div>

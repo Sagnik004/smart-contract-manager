@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      'reddit': ['Reddit Sans', ...defaultTheme.fontFamily.sans],
+      'inter': ['Inter', ...defaultTheme.fontFamily.sans],
     },
   },
   plugins: [],

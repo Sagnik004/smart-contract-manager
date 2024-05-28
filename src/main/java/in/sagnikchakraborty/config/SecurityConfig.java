@@ -17,6 +17,9 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomUserDetailService customUserDetailService;
 
+    @Autowired
+    private OAuthAuthenticationSuccessHandler oAuthAuthenticationSuccessHandler;
+
     /* Configuration of authentication provider */
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -50,6 +53,9 @@ public class SecurityConfig {
                     .defaultSuccessUrl("/user/profile")
                     .usernameParameter("email")
                     .passwordParameter("password")
+            ).oauth2Login(oauth -> oauth
+                    .loginPage("/login")
+                    .successHandler(oAuthAuthenticationSuccessHandler)
             );
 
         // Temporary (when csrf is enabled, which is enabled by default, then logout URL must be a POST request.
